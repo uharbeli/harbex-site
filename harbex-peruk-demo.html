@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Ela Yalın Kaynak Studio | HARBEX Demo</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--gold:#D4A012;--gold-light:#F5D547;--gold-dark:#B8860B;--warm-white:#FEFEFE;--cream:#FFFDF7;--bg-main:#FBFAF8;--text-primary:#1a1a1a;--text-secondary:#444;--text-light:#777;--card-bg:rgba(255,255,255,0.85);--card-border:rgba(212,160,18,0.15);--shadow-soft:0 10px 30px rgba(0,0,0,0.08);--shadow-medium:0 15px 40px rgba(0,0,0,0.12);--shadow-gold:0 8px 25px rgba(212,160,18,0.18);--radius:22px;--radius-sm:16px}
+body{font-family:'Inter',sans-serif;background:linear-gradient(180deg,#FFFDF9 0%,#FBF8F1 100%);color:var(--text-primary);overflow-x:hidden}
+.top-demo-bar{position:sticky;top:0;z-index:999;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;background:rgba(15,23,42,.92);color:#fff;backdrop-filter:blur(14px)}
+.top-demo-bar strong{font-size:14px;letter-spacing:.03em}.top-demo-bar span{font-size:12px;color:rgba(255,255,255,.72)}
+.demo-chip{padding:8px 12px;border-radius:999px;background:rgba(212,160,18,.16);color:#fff6d6;font-size:12px;font-weight:700;border:1px solid rgba(212,160,18,.22)}
+.phone-frame{max-width:430px;margin:18px auto 40px;padding:0 14px}
+.app-shell{background:var(--warm-white);border-radius:34px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.12);border:1px solid rgba(212,160,18,.10)}
+.hero{position:relative;padding:32px 24px 28px;background:linear-gradient(135deg,#fffdf7 0%,#fff6d6 100%)}
+.hero::after{content:'';position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,18,.28),transparent 70%)}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid rgba(212,160,18,.18);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold-dark)}
+.badge::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.playfair{font-family:'Playfair Display',serif}.gold-text{color:var(--gold-dark)}
+.tabs{display:flex;gap:8px;margin-top:18px;overflow:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+.tab-btn{flex-shrink:0;padding:10px 16px;border-radius:999px;background:#fff;border:1px solid rgba(212,160,18,.16);font-weight:700;color:#666}.tab-btn.active{background:var(--text-primary);color:#fff;border-color:transparent}
+.section-title{font-size:18px;font-weight:800;padding:0 20px 14px;color:#222}
+.service-grid{display:grid;gap:14px;padding:0 20px}
+.service-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:18px;padding:18px;box-shadow:var(--shadow-soft)}
+.price-tag{font-size:20px;font-weight:900;color:var(--gold-dark)}
+.divider{height:1px;background:#f1efe9;margin:22px 20px}
+.gallery-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;padding:0 20px}.gallery-ph{aspect-ratio:1/1.1;border-radius:18px;background:linear-gradient(135deg,#f6ebcc,#fffaf0);display:flex;align-items:flex-end;justify-content:center;padding:12px;text-align:center;color:#8f6b00;font-size:12px;font-weight:700;border:1px solid rgba(212,160,18,.16)}
+.package-card{background:#111827;color:#fff;border-radius:20px;padding:20px;border:1px solid rgba(255,255,255,.06);box-shadow:var(--shadow-medium)}
+.package-sub{font-size:12px;color:#bbb;margin-bottom:14px}.package-list{display:grid;gap:8px;color:#ddd;font-size:13px}
+.review-row{display:grid;gap:12px;padding:0 20px 4px}.review-card{background:#fff;border:1px solid #f0f0f0;border-radius:18px;padding:16px;box-shadow:var(--shadow-soft)}
+.review-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}.review-avatar{width:38px;height:38px;border-radius:50%;background:#f0e6d0;display:flex;align-items:center;justify-content:center;font-weight:800;color:#b8860b}
+.form-wrap{padding:0 20px;display:grid;gap:12px}.field{width:100%;padding:14px;border:1.5px solid #eee;border-radius:14px;font-size:14px;background:#fff}.field:focus{outline:none;border-color:var(--gold)}
+.btn-gold{width:100%;padding:16px;border:none;border-radius:16px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#1a1a1a;font-size:15px;font-weight:800;cursor:pointer;box-shadow:var(--shadow-gold)}
+.faq-wrap{padding:0 20px;display:grid;gap:10px}.faq-item{background:#fafafa;border:1px solid #f0f0f0;border-radius:16px;padding:14px}.faq-question{display:flex;justify-content:space-between;gap:10px;font-size:13px;font-weight:700}.faq-answer{display:none;color:#777;font-size:12px;line-height:1.65;padding-top:10px}.faq-item.open .faq-answer{display:block}.faq-item.open .faq-question i{transform:rotate(180deg)}
+.contact-stack{padding:0 20px;display:grid;gap:10px}.contact-item{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border:1px solid #f0f0f0;border-radius:16px;box-shadow:var(--shadow-soft);cursor:pointer}
+.hours-card{background:#fafafa;border:1px solid #f0f0f0;border-radius:16px;padding:18px 20px;margin:0 20px}.hour-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0}.hour-row:last-child{border-bottom:none}
+.footer{text-align:center;padding:34px 20px 24px}.footer h3{font-size:18px;margin-bottom:4px}.footer p{font-size:11px;color:#ccc;margin-top:10px}
+.success-toast{position:fixed;right:14px;top:70px;background:#111827;color:#fff;padding:14px 16px;border-radius:14px;box-shadow:var(--shadow-medium);display:none;z-index:1000}
+.bottom-nav{position:sticky;bottom:0;display:grid;grid-template-columns:repeat(5,1fr);background:rgba(255,253,247,.94);backdrop-filter:blur(12px);border-top:1px solid rgba(212,160,18,.10)}
+.nav-item{padding:12px 4px;display:grid;place-items:center;gap:4px;font-size:10px;color:#888}.nav-item.active{color:var(--gold-dark);font-weight:700}
+@media (max-width:480px){.gallery-row{grid-template-columns:1fr 1fr}.tabs{padding-bottom:4px}}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+<div class="top-demo-bar"><div><strong>HARBEX Demo</strong><span>Peruk / kaynak salonu</span></div><div class="demo-chip">Beauty Demo</div></div>
+<div class="phone-frame">
+<div class="app-shell">
+  <div class="hero">
+    <div class="badge">Premium Hair Studio</div>
+    <div style="margin-top:18px; display:flex; align-items:flex-start; justify-content:space-between; gap:12px;">
+      <div>
+        <h1 class="playfair" style="font-size: 20px; font-weight: 700; color: #222;">Ela Yalın</h1>
+        <p class="gold-text" style="font-size: 10px; font-weight: 600; letter-spacing: 3px;">KAYNAK STUDIO</p>
+      </div>
+      <div style="padding:8px 12px;background:#111827;color:#fff;border-radius:14px;font-size:11px;font-weight:700;">Demo</div>
+    </div>
+    <p style="margin-top:16px; font-size:13px; color:#666; line-height:1.75; max-width:320px;">Doğal görünümlü, kaliteli ve güvenilir saç kaynak & peruk çözümleri</p>
+    <div class="tabs">
+      <span class="tab-btn active">Kaynak</span>
+      <span class="tab-btn">Peruk</span>
+      <span class="tab-btn">Bakım</span>
+      <span class="tab-btn">Randevu</span>
+    </div>
+  </div>
+
+  <h3 class="section-title">💇‍♀️ Hizmetler</h3>
+  <div class="service-grid">
+    <div class="service-card"><div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;"><div><h4 style="font-size:14px;font-weight:700;color:#222;">Mikro Kaynak</h4><p style="font-size:12px;color:#888;margin-top:6px;line-height:1.6;">Doğal görünüm için ince ve profesyonel uygulama.</p></div><div class="price-tag">7.500 TL</div></div></div>
+    <div class="service-card"><div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;"><div><h4 style="font-size:14px;font-weight:700;color:#222;">Boncuk Kaynak</h4><p style="font-size:12px;color:#888;margin-top:6px;line-height:1.6;">Hacim ve uzunluk için konforlu kaynak çözümü.</p></div><div class="price-tag">6.900 TL</div></div></div>
+    <div class="service-card"><div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;"><div><h4 style="font-size:14px;font-weight:700;color:#222;">Premium Peruk</h4><p style="font-size:12px;color:#888;margin-top:6px;line-height:1.6;">%100 gerçek saç premium peruk seçenekleri.</p></div><div class="price-tag">12.500 TL</div></div></div>
+    <div class="service-card"><div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;"><div><h4 style="font-size:14px;font-weight:700;color:#222;">Medikal Peruk</h4><p style="font-size:12px;color:#888;margin-top:6px;line-height:1.6;">Konfor ve doğallığı bir arada sunan medikal çözümler.</p></div><div class="price-tag">9.800 TL</div></div></div>
+    <div class="service-card"><div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;"><div><h4 style="font-size:14px;font-weight:700;color:#222;">Kaynak Bakım & Söküm</h4><p style="font-size:12px;color:#888;margin-top:6px;line-height:1.6;">Kaynak saçlar için düzenli bakım ve profesyonel söküm.</p></div><div class="price-tag">1.800 TL</div></div></div>
+  </div>
+
+  <div class="divider"></div>
+  <h3 class="section-title">✨ Uygulama Örnekleri</h3>
+  <div class="gallery-row">
+    <div class="gallery-ph">Mikro Kaynak</div>
+    <div class="gallery-ph">Platin Bob Peruk</div>
+    <div class="gallery-ph">Dalgalı Kaynak</div>
+  </div>
+
+  <div class="divider"></div>
+  <h3 class="section-title">🎁 Paketler</h3>
+  <div style="padding:0 20px; display:grid; gap:14px;">
+    <div class="package-card"><h4 style="font-size:16px; margin-bottom:4px;">Gold Paket</h4><div class="package-sub">Boncuk Kaynak + Bakım</div><div class="package-list"><p>✅ Boncuk kaynak uygulaması</p><p>✅ İlk bakım dahil</p><p>✅ Danışmanlık desteği</p></div></div>
+    <div class="package-card"><h4 style="font-size:16px; margin-bottom:4px;">Elite Paket</h4><div class="package-sub">Mikro Kaynak + Full Bakım</div><div class="package-list"><p>✅ Mikro kaynak uygulaması</p><p>✅ Özel bakım seti</p><p>✅ Premium görünüm</p></div></div>
+    <div class="package-card"><h4 style="font-size:16px; margin-bottom:4px;">Luxury Paket</h4><div class="package-sub">Premium Peruk + Tam Hizmet</div><div class="package-list"><p>✅ Premium gerçek saç peruk</p><p>✅ Kişiye özel uyumlandırma</p><p>✅ Bakım yönlendirmesi</p></div></div>
+  </div>
+
+  <div class="divider"></div>
+  <h3 class="section-title">💬 Müşteri Yorumları</h3>
+  <div class="review-row">
+    <div class="review-card"><div class="review-top"><div class="review-avatar">A</div><div><div style="font-size:13px;font-weight:600;">Ayşe K.</div><div style="font-size:11px;color:#d4af37;">⭐⭐⭐⭐⭐</div></div></div><p style="font-size:12px;color:#777;line-height:1.6;">“Mikro kaynak yaptırdım, kimse fark etmiyor! Çok doğal görünüyor. Ela Hanım çok ilgili ve profesyonel. Kesinlikle tavsiye ederim! 💇‍♀️”</p></div>
+    <div class="review-card"><div class="review-top"><div class="review-avatar">S</div><div><div style="font-size:13px;font-weight:600;">Seda M.</div><div style="font-size:11px;color:#d4af37;">⭐⭐⭐⭐⭐</div></div></div><p style="font-size:12px;color:#777;line-height:1.6;">“Medikal peruk için gittim. Çok hassas davrandılar, kendimi çok rahat hissettim. Sonuç muhteşem! Teşekkürler Ela Yalın ekibi 🙏”</p></div>
+    <div class="review-card"><div class="review-top"><div class="review-avatar">E</div><div><div style="font-size:13px;font-weight:600;">Elif T.</div><div style="font-size:11px;color:#d4af37;">⭐⭐⭐⭐⭐</div></div></div><p style="font-size:12px;color:#777;line-height:1.6;">“Premium peruk aldım, %100 gerçek saç. İnanamıyorum bu kadar doğal olacağına! Hayatım değişti resmen ✨”</p></div>
+  </div>
+
+  <div class="divider"></div>
+  <div id="randevu">
+    <h3 class="section-title">📅 Online Randevu</h3>
+    <div class="form-wrap">
+      <input class="field" type="text" placeholder="Adınız Soyadınız" id="isim">
+      <input class="field" type="tel" placeholder="Telefon Numaranız" id="telefon">
+      <select class="field" id="hizmet">
+        <option value="">Hizmet Seçiniz</option>
+        <option value="mikro">Mikro Kaynak</option>
+        <option value="boncuk">Boncuk Kaynak</option>
+        <option value="premium">Premium Peruk</option>
+        <option value="medikal">Medikal Peruk</option>
+        <option value="keratin">Keratin Bakım</option>
+        <option value="sokum">Kaynak Söküm & Bakım</option>
+      </select>
+      <input class="field" type="date" id="tarih">
+      <select class="field" id="saat">
+        <option value="">Saat Seçiniz</option>
+        <option>09:00</option><option>10:00</option><option>11:00</option><option>12:00</option>
+        <option>13:00</option><option>14:00</option><option>15:00</option><option>16:00</option><option>17:00</option><option>18:00</option>
+      </select>
+      <textarea class="field" placeholder="Notunuz (opsiyonel)" rows="3" id="not"></textarea>
+      <button class="btn-gold" onclick="randevuAl()"><i class="fas fa-check-circle"></i> &nbsp; Randevuyu Onayla</button>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <h3 class="section-title">❓ Sıkça Sorulan Sorular</h3>
+  <div class="faq-wrap">
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question"><span>Kaynak saça zarar verir mi?</span><i class="fas fa-chevron-down" style="color:#d4af37;font-size:12px;transition:transform .3s;"></i></div><div class="faq-answer">Profesyonel uygulamada saça zarar vermez. Mikro kaynak ve boncuk kaynak yöntemleri saç tellerine minimum temas ile uygulanır. Düzenli bakım ile saçlarınız sağlıklı kalır.</div></div>
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question"><span>Kaynak ne kadar süre kalır?</span><i class="fas fa-chevron-down" style="color:#d4af37;font-size:12px;transition:transform .3s;"></i></div><div class="faq-answer">Mikro kaynak ortalama 3-4 ay, boncuk kaynak ise 2-3 ay dayanır. Düzenli bakım randevularını aksatmamak önemlidir.</div></div>
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question"><span>Peruk nasıl seçilir?</span><i class="fas fa-chevron-down" style="color:#d4af37;font-size:12px;transition:transform .3s;"></i></div><div class="faq-answer">Yüz şeklinize, ten renginize ve yaşam tarzınıza uygun peruk seçimi stüdyomuzda danışmanlık eşliğinde yapılır.</div></div>
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question"><span>Medikal peruk SGK'dan karşılanır mı?</span><i class="fas fa-chevron-down" style="color:#d4af37;font-size:12px;transition:transform .3s;"></i></div><div class="faq-answer">Belirli sağlık koşullarında medikal peruk desteği alınabilir. Detaylı bilgi için iletişime geçebilirsiniz.</div></div>
+  </div>
+
+  <div class="divider"></div>
+  <h3 class="section-title">📞 İletişim</h3>
+  <div class="contact-stack">
+    <div class="contact-item" onclick="window.open('tel:+905551234567')"><i class="fas fa-phone" style="color:#b8860b;font-size:16px;"></i><div><div style="font-size:13px;font-weight:600;">Telefon</div><div style="font-size:12px;color:#999;">0555 123 45 67</div></div></div>
+    <div class="contact-item" onclick="window.open('https://wa.me/905551234567')"><i class="fab fa-whatsapp" style="color:#25d366;font-size:18px;"></i><div><div style="font-size:13px;font-weight:600;">WhatsApp</div><div style="font-size:12px;color:#999;">Hemen Yaz</div></div></div>
+    <div class="contact-item" onclick="window.open('https://instagram.com/elayalinstudio')"><i class="fab fa-instagram" style="color:#e1306c;font-size:18px;"></i><div><div style="font-size:13px;font-weight:600;">Instagram</div><div style="font-size:12px;color:#999;">@elayalinstudio</div></div></div>
+    <div class="contact-item"><i class="fas fa-map-marker-alt" style="color:#b8860b;font-size:18px;"></i><div><div style="font-size:13px;font-weight:600;">Adres</div><div style="font-size:12px;color:#999;">Stüdyo adresi buraya yazılacak</div></div></div>
+  </div>
+
+  <div style="padding:20px;"><div style="background:#f5f5f5;border-radius:14px;height:180px;display:flex;align-items:center;justify-content:center;border:1px solid #eee;"><div style="text-align:center;color:#bbb;"><i class="fas fa-map" style="font-size:30px;margin-bottom:8px;"></i><p style="font-size:12px;">Google Harita Buraya Eklenecek</p></div></div></div>
+
+  <div class="divider"></div>
+  <h3 class="section-title">🕐 Çalışma Saatleri</h3>
+  <div class="hours-card">
+    <div class="hour-row"><span style="font-size:13px;">Pazartesi - Cuma</span><span style="font-size:13px;font-weight:700;color:#b8860b;">09:00 - 19:00</span></div>
+    <div class="hour-row"><span style="font-size:13px;">Cumartesi</span><span style="font-size:13px;font-weight:700;color:#b8860b;">09:00 - 18:00</span></div>
+    <div class="hour-row"><span style="font-size:13px;">Pazar</span><span style="font-size:13px;font-weight:700;color:#e74c3c;">Kapalı</span></div>
+  </div>
+
+  <div class="footer">
+    <h3 class="playfair gold-text">Ela Yalın</h3>
+    <div style="font-size:10px;color:#bbb;letter-spacing:3px;">KAYNAK STUDIO</div>
+    <p>© 2026 Tüm Hakları Saklıdır</p>
+    <p style="font-size:10px;color:#ddd;margin-top:4px;">HARBEX Demo</p>
+  </div>
+
+  <div class="bottom-nav">
+    <div class="nav-item active"><i class="fas fa-home" style="font-size:18px;"></i><span>Ana Sayfa</span></div>
+    <div class="nav-item" onclick="document.querySelector('.section-title').scrollIntoView({behavior:'smooth'})"><i class="fas fa-scissors" style="font-size:18px;"></i><span>Hizmetler</span></div>
+    <div class="nav-item" onclick="document.getElementById('randevu').scrollIntoView({behavior:'smooth'})"><i class="fas fa-calendar-alt" style="font-size:18px;"></i><span>Randevu</span></div>
+    <div class="nav-item"><i class="fas fa-shopping-bag" style="font-size:18px;"></i><span>Mağaza</span></div>
+    <div class="nav-item"><i class="fas fa-user" style="font-size:18px;"></i><span>Profil</span></div>
+  </div>
+</div>
+</div>
+
+<div class="success-toast" id="toast"></div>
+<script>
+function randevuAl(){
+  const isim=document.getElementById('isim').value, telefon=document.getElementById('telefon').value, hizmet=document.getElementById('hizmet').value, tarih=document.getElementById('tarih').value, saat=document.getElementById('saat').value;
+  if(!isim||!telefon||!hizmet||!tarih||!saat){ toast('Lütfen tüm alanları doldurunuz 🙏'); return; }
+  toast('✅ Demo randevu oluşturuldu');
+  alert('✅ Randevunuz Alındı!\n\n👤 '+isim+'\n📞 '+telefon+'\n💇‍♀️ '+hizmet+'\n📅 '+tarih+'\n🕐 '+saat+'\n\nEn kısa sürede sizi arayacağız!\nEla Yalın Kaynak Studio ✨');
+  ['isim','telefon','hizmet','tarih','saat','not'].forEach(id=>document.getElementById(id).value='');
+}
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.style.display='block'; setTimeout(()=>t.style.display='none',2200); }
+</script>
+</body>
+</html>

@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>KariyerPusulam - Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6C5CE7;
+            --primary-light: #A29BFE;
+            --secondary: #00CEC9;
+            --accent: #FD79A8;
+            --accent2: #FDCB6E;
+            --success: #00B894;
+            --warning: #F39C12;
+            --danger: #E74C3C;
+            --dark: #2D3436;
+            --gray: #636E72;
+            --gray-light: #B2BEC3;
+            --light: #DFE6E9;
+            --white: #FFFFFF;
+            --bg: #F8F9FE;
+            --card-shadow: 0 4px 20px rgba(108,92,231,0.12);
+            --gradient-primary: linear-gradient(135deg, #6C5CE7, #A29BFE);
+            --gradient-secondary: linear-gradient(135deg, #00CEC9, #55EFC4);
+            --gradient-accent: linear-gradient(135deg, #FD79A8, #FDCB6E);
+            --gradient-hero: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 50%, #00CEC9 100%);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg);
+            color: var(--dark);
+            overflow-x: hidden;
+            padding-bottom: 90px;
+        }
+
+        /* DEMO BANNER */
+        .demo-banner {
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+        }
+        .demo-banner i { margin-right: 6px; }
+
+        /* HEADER */
+        .top-header {
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .user-info { display: flex; align-items: center; gap: 12px; }
+        .user-avatar {
+            width: 44px; height: 44px; border-radius: 14px;
+            background: var(--gradient-primary);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 18px; font-weight: 900;
+            box-shadow: 0 4px 12px rgba(108,92,231,0.3);
+        }
+        .user-greeting { font-size: 12px; color: var(--gray); font-weight: 600; }
+        .user-name { font-size: 17px; font-weight: 900; }
+        .header-actions { display: flex; gap: 8px; }
+        .header-btn {
+            width: 40px; height: 40px; border-radius: 12px;
+            background: white; border: none; font-size: 16px; color: var(--dark);
+            box-shadow: var(--card-shadow); cursor: pointer; position: relative;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .notif-badge {
+            position: absolute; top: -2px; right: -2px;
+            width: 16px; height: 16px; background: var(--danger);
+            border-radius: 50%; font-size: 9px; font-weight: 800;
+            color: white; display: flex; align-items: center; justify-content: center;
+            border: 2px solid white;
+        }
+
+        /* HERO */
+        .hero-card {
+            margin: 0 16px 16px; padding: 22px;
+            background: var(--gradient-hero);
+            border-radius: 20px; color: white;
+            position: relative; overflow: hidden;
+        }
+        .hero-card::before {
+            content: ''; position: absolute; top: -30px; right: -30px;
+            width: 110px; height: 110px; background: rgba(255,255,255,0.1); border-radius: 50%;
+        }
+        .hero-sub { font-size: 12px; font-weight: 600; opacity: 0.85; margin-bottom: 4px; }
+        .hero-title { font-size: 18px; font-weight: 900; margin-bottom: 14px; position: relative; z-index: 1; }
+        .hero-stats { display: flex; gap: 12px; position: relative; z-index: 1; }
+        .hero-stat {
+            background: rgba(255,255,255,0.18); backdrop-filter: blur(10px);
+            padding: 8px 12px; border-radius: var(--radius-sm); text-align: center; flex: 1;
+        }
+        .hero-stat-val { font-size: 18px; font-weight: 900; }
+        .hero-stat-lbl { font-size: 9px; font-weight: 600; opacity: 0.85; margin-top: 2px; }
+
+        /* COUNTDOWN */
+        .countdown-card {
+            margin: 0 16px 16px; background: white; border-radius: var(--radius);
+            padding: 16px; box-shadow: var(--card-shadow);
+            display: flex; align-items: center; gap: 14px;
+        }
+        .countdown-icon {
+            width: 48px; height: 48px; border-radius: 14px;
+            background: linear-gradient(135deg, #E74C3C, #FD79A8);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; color: white; flex-shrink: 0;
+        }
+        .countdown-info { flex: 1; }
+        .countdown-label { font-size: 11px; font-weight: 700; color: var(--gray); }
+        .countdown-title { font-size: 15px; font-weight: 900; }
+        .countdown-num { font-size: 26px; font-weight: 900; color: var(--danger); line-height: 1; text-align: center; }
+        .countdown-day-lbl { font-size: 9px; font-weight: 700; color: var(--gray); text-align: center; }
+
+        /* SECTION */
+        .section-hdr {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 20px; margin-bottom: 12px;
+        }
+        .section-title { font-size: 16px; font-weight: 900; }
+        .section-link { font-size: 12px; font-weight: 700; color: var(--primary); text-decoration: none; }
+
+        /* QUICK ACTIONS */
+        .actions-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 10px; padding: 0 16px; margin-bottom: 20px;
+        }
+        .action-item { text-align: center; cursor: pointer; }
+        .action-icon {
+            width: 50px; height: 50px; border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; margin: 0 auto 6px; color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .action-label { font-size: 10px; font-weight: 700; line-height: 1.3; }
+
+        /* UNI SCROLL */
+        .uni-scroll {
+            display: flex; gap: 12px; padding: 4px 16px;
+            overflow-x: auto; scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch; margin-bottom: 20px;
+        }
+        .uni-scroll::-webkit-scrollbar { display: none; }
+        .uni-card {
+            min-width: 240px; background: white; border-radius: var(--radius);
+            padding: 16px; box-shadow: var(--card-shadow); scroll-snap-align: start;
+            cursor: pointer; transition: var(--transition);
+        }
+        .uni-card:active { transform: scale(0.97); }
+        .uni-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .uni-logo {
+            width: 40px; height: 40px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; color: white; font-weight: 900; flex-shrink: 0;
+        }
+        .uni-name { font-size: 13px; font-weight: 800; line-height: 1.3; }
+        .uni-loc { font-size: 10px; color: var(--gray); font-weight: 600; }
+        .uni-tags { display: flex; gap: 5px; margin-bottom: 10px; }
+        .uni-tag { padding: 3px 8px; border-radius: 50px; font-size: 9px; font-weight: 700; }
+        .tag-devlet { background: #E8F8F5; color: #00B894; }
+        .tag-vakif { background: #FFF3E0; color: #F39C12; }
+        .uni-stats { display: flex; gap: 6px; }
+        .uni-stat {
+            flex: 1; text-align: center; padding: 6px 4px;
+            background: var(--bg); border-radius: var(--radius-sm);
+        }
+        .uni-stat-val { font-size: 13px; font-weight: 900; color: var(--primary); }
+        .uni-stat-lbl { font-size: 8px; font-weight: 700; color: var(--gray); }
+
+        /* TASKS */
+        .task-item {
+            background: white; border-radius: var(--radius); padding: 14px;
+            margin: 0 16px 8px; box-shadow: var(--card-shadow);
+            display: flex; align-items: center; gap: 12px; cursor: pointer;
+        }
+        .task-cb {
+            width: 24px; height: 24px; border-radius: 7px;
+            border: 2.5px solid var(--light);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: var(--transition); flex-shrink: 0;
+        }
+        .task-cb.checked { background: var(--success); border-color: var(--success); color: white; font-size: 12px; }
+        .task-content { flex: 1; }
+        .task-title { font-size: 13px; font-weight: 700; }
+        .task-title.done { text-decoration: line-through; color: var(--gray-light); }
+        .task-meta { font-size: 10px; font-weight: 600; color: var(--gray); }
+        .task-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+        /* MOTIVATION */
+        .motivation-card {
+            margin: 16px; padding: 22px; border-radius: var(--radius);
+            background: var(--gradient-accent); color: white;
+            position: relative; overflow: hidden;
+        }
+        .motivation-card::before { content: '💫'; position: absolute; top: 8px; right: 14px; font-size: 36px; opacity: 0.3; }
+        .motiv-label { font-size: 10px; font-weight: 700; opacity: 0.85; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+        .motiv-text { font-size: 15px; font-weight: 800; line-height: 1.5; position: relative; z-index: 1; }
+        .motiv-author { font-size: 11px; font-weight: 600; opacity: 0.8; margin-top: 8px; }
+
+        /* TERCIH */
+        .tercih-card {
+            margin: 0 16px 16px; background: white; border-radius: var(--radius);
+            padding: 18px; box-shadow: var(--card-shadow); border-left: 4px solid var(--primary);
+        }
+        .tercih-hdr { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .tercih-icon {
+            width: 40px; height: 40px; border-radius: 12px;
+            background: rgba(108,92,231,0.1);
+            display: flex; align-items: center; justify-content: center; font-size: 20px;
+        }
+        .tercih-title { font-size: 15px; font-weight: 800; }
+        .tercih-desc { font-size: 12px; color: var(--gray); margin-bottom: 14px; line-height: 1.5; }
+        .btn-tercih {
+            width: 100%; padding: 12px; border: none; border-radius: var(--radius-sm);
+            background: var(--gradient-primary); color: white;
+            font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+            box-shadow: 0 4px 15px rgba(108,92,231,0.3);
+        }
+
+        /* PROGRESS */
+        .progress-card {
+            margin: 0 16px 16px; background: white; border-radius: var(--radius);
+            padding: 18px; box-shadow: var(--card-shadow);
+        }
+        .progress-hdr { display: flex; justify-content: space-between; margin-bottom: 12px; }
+        .progress-title { font-size: 14px; font-weight: 800; }
+        .progress-pct { font-size: 14px; font-weight: 900; color: var(--primary); }
+        .progress-bar { height: 8px; background: var(--light); border-radius: 4px; overflow: hidden; margin-bottom: 14px; }
+        .progress-fill { height: 100%; border-radius: 4px; background: var(--gradient-primary); }
+        .progress-item { display: flex; align-items: center; gap: 10px; padding: 6px 0; }
+        .p-check {
+            width: 20px; height: 20px; border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 10px; flex-shrink: 0;
+        }
+        .p-check.done { background: var(--success); color: white; }
+        .p-check.pending { background: var(--light); color: var(--gray-light); }
+        .p-check.now { background: var(--primary); color: white; animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0%,100% { box-shadow: 0 0 0 0 rgba(108,92,231,0.4); }
+            50% { box-shadow: 0 0 0 6px rgba(108,92,231,0); }
+        }
+        .p-text { font-size: 12px; font-weight: 700; }
+        .p-text.completed { text-decoration: line-through; color: var(--gray-light); }
+
+        /* BOTTOM NAV */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: white; border-top: 1px solid rgba(0,0,0,0.05);
+            display: flex; justify-content: space-around;
+            padding: 8px 0; padding-bottom: max(8px, env(safe-area-inset-bottom));
+            z-index: 5000; box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+        }
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center; gap: 2px;
+            padding: 6px 12px; cursor: pointer; border: none; background: none;
+            font-family: 'Nunito', sans-serif; position: relative;
+        }
+        .nav-item i { font-size: 18px; color: var(--gray-light); transition: var(--transition); }
+        .nav-item span { font-size: 9px; font-weight: 700; color: var(--gray-light); }
+        .nav-item.active i { color: var(--primary); }
+        .nav-item.active span { color: var(--primary); }
+        .nav-item.active::before {
+            content: ''; position: absolute; top: -8px;
+            width: 18px; height: 3px; background: var(--primary);
+            border-radius: 0 0 3px 3px;
+        }
+        .nav-center {
+            width: 48px; height: 48px; border-radius: 14px;
+            background: var(--gradient-primary);
+            display: flex; align-items: center; justify-content: center;
+            margin-top: -18px; box-shadow: 0 4px 15px rgba(108,92,231,0.4);
+            border: 3px solid white;
+        }
+        .nav-center i { color: white !important; font-size: 20px; }
+
+        /* LOCKED OVERLAY */
+        .locked-section {
+            position: relative;
+            pointer-events: none;
+            user-select: none;
+        }
+        .locked-section::after {
+            content: '🔒 Tam sürüm için uygulamayı indirin';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(248,249,254,0.85);
+            backdrop-filter: blur(4px);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; font-weight: 800; color: var(--primary);
+            border-radius: var(--radius);
+            z-index: 10;
+        }
+
+        /* CTA BANNER */
+        .cta-banner {
+            margin: 20px 16px; padding: 24px; text-align: center;
+            background: var(--gradient-hero); border-radius: 20px; color: white;
+        }
+        .cta-title { font-size: 20px; font-weight: 900; margin-bottom: 8px; }
+        .cta-desc { font-size: 13px; opacity: 0.9; margin-bottom: 16px; line-height: 1.5; }
+        .cta-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 14px 28px; background: white; color: var(--primary);
+            border: none; border-radius: 50px; font-family: 'Nunito', sans-serif;
+            font-size: 14px; font-weight: 900; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: var(--transition);
+        }
+        .cta-btn:active { transform: scale(0.95); }
+        .cta-features {
+            display: flex; justify-content: center; gap: 20px;
+            margin-top: 16px; font-size: 11px; font-weight: 700; opacity: 0.9;
+        }
+
+        /* RESPONSIVE */
+        @media (min-width: 768px) {
+            body { max-width: 100%; }
+            .hero-card { margin: 0 40px 16px; }
+            .actions-grid { padding: 0 40px; }
+            .uni-scroll { padding: 4px 40px; }
+            .task-item { margin: 0 40px 8px; }
+            .motivation-card { margin: 16px 40px; }
+            .tercih-card, .progress-card { margin: 0 40px 16px; }
+            .section-hdr { padding: 0 44px; }
+            .countdown-card { margin: 0 40px 16px; }
+            .cta-banner { margin: 20px 40px; }
+            .bottom-nav { max-width: 100%; left: 0; transform: none; }
+        }
+        @media (min-width: 1024px) {
+            .hero-card { margin: 0 60px 20px; max-width: 900px; }
+            .actions-grid { padding: 0 60px; grid-template-columns: repeat(8,1fr); }
+            .uni-scroll { padding: 4px 60px; }
+            .uni-card { min-width: 280px; }
+            .task-item { margin: 0 60px 8px; max-width: 800px; }
+            .motivation-card { margin: 16px 60px; max-width: 800px; }
+            .tercih-card, .progress-card { margin: 0 60px 16px; max-width: 800px; }
+            .section-hdr { padding: 0 64px; }
+            .countdown-card { margin: 0 60px 16px; max-width: 800px; }
+            .cta-banner { margin: 20px 60px; max-width: 800px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- DEMO BANNER -->
+<div class="demo-banner">
+    <i class="fas fa-info-circle"></i>
+    DEMO SÜRÜM — Tüm özellikler için uygulamayı indirin
+</div>
+
+<!-- HEADER -->
+<div class="top-header">
+    <div class="user-info">
+        <div class="user-avatar">K</div>
+        <div>
+            <div class="user-greeting">Günaydın 🌅</div>
+            <div class="user-name">Keşifçi</div>
+        </div>
+    </div>
+    <div class="header-actions">
+        <button class="header-btn">
+            <i class="fas fa-bell"></i>
+            <div class="notif-badge">3</div>
+        </button>
+        <button class="header-btn"><i class="fas fa-cog"></i></button>
+    </div>
+</div>
+
+<!-- HERO -->
+<div class="hero-card">
+    <div class="hero-sub">📊 Haftalık Özet</div>
+    <div class="hero-title">Bu hafta harika gidiyorsun!</div>
+    <div class="hero-stats">
+        <div class="hero-stat">
+            <div class="hero-stat-val">12</div>
+            <div class="hero-stat-lbl">Görev Tamam</div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-val">3</div>
+            <div class="hero-stat-lbl">Gün Serisi 🔥</div>
+        </div>
+        <div class="hero-stat">
+            <div class="hero-stat-val">72%</div>
+            <div class="hero-stat-lbl">İlerleme</div>
+        </div>
+    </div>
+</div>
+
+<!-- COUNTDOWN -->
+<div class="countdown-card">
+    <div class="countdown-icon">⏰</div>
+    <div class="countdown-info">
+        <div class="countdown-label">GERİ SAYIM</div>
+        <div class="countdown-title">2025 YKS Sınavı</div>
+    </div>
+    <div>
+        <div class="countdown-num" id="countdownDays">--</div>
+        <div class="countdown-day-lbl">GÜN</div>
+    </div>
+</div>
+
+<!-- QUICK ACTIONS -->
+<div class="section-hdr">
+    <div class="section-title">Hızlı Erişim</div>
+</div>
+<div class="actions-grid">
+    <div class="action-item">
+        <div class="action-icon" style="background:var(--gradient-primary)"><i class="fas fa-university"></i></div>
+        <div class="action-label">Üniversite Bul</div>
+    </div>
+    <div class="action-item">
+        <div class="action-icon" style="background:var(--gradient-secondary)"><i class="fas fa-list-ol"></i></div>
+        <div class="action-label">Tercih Listesi</div>
+    </div>
+    <div class="action-item">
+        <div class="action-icon" style="background:var(--gradient-accent)"><i class="fas fa-chart-line"></i></div>
+        <div class="action-label">Gelişim Planı</div>
+    </div>
+    <div class="action-item">
+        <div class="action-icon" style="background:linear-gradient(135deg,#2D3436,#636E72)"><i class="fas fa-user-tie"></i></div>
+        <div class="action-label">Mentor Bul</div>
+    </div>
+</div>
+
+<!-- TERCIH -->
+<div class="tercih-card">
+    <div class="tercih-hdr">
+        <div class="tercih-icon">🎯</div>
+        <div class="tercih-title">Tercih Asistanı</div>
+    </div>
+    <div class="tercih-desc">Puanına göre akıllı tercih listeni oluştur. Stratejik, güvenli ve hayalindeki bölümleri belirle.</div>
+    <button class="btn-tercih"><i class="fas fa-magic"></i> Tercih Listemi Oluştur</button>
+</div>
+
+<!-- UNI SCROLL -->
+<div class="section-hdr">
+    <div class="section-title">🏫 Öne Çıkan Üniversiteler</div>
+    <a class="section-link">Tümü →</a>
+</div>
+<div class="uni-scroll">
+    <div class="uni-card">
+        <div class="uni-header">
+            <div class="uni-logo" style="background:linear-gradient(135deg,#1a237e,#283593);">BÜ</div>
+            <div>
+                <div class="uni-name">Boğaziçi Üniversitesi</div>
+                <div class="uni-loc">📍 İstanbul, Bebek</div>
+            </div>
+        </div>
+        <div class="uni-tags">
+            <span class="uni-tag tag-devlet">Devlet</span>
+            <span class="uni-tag" style="background:#E3F2FD;color:#1565C0;">Top 3</span>
+        </div>
+        <div class="uni-stats">
+            <div class="uni-stat"><div class="uni-stat-val">485+</div><div class="uni-stat-lbl">Taban Puan</div></div>
+            <div class="uni-stat"><div class="uni-stat-val">15K</div><div class="uni-stat-lbl">Öğrenci</div></div>
+            <div class="uni-stat"><div class="uni-stat-val">4.8</div><div class="uni-stat-lbl">Puan ⭐</div></div>
+        </div>
+    </div>
+    <div class="uni-card">
+        <div class="uni-header">
+            <div class="uni-logo" style="background:linear-gradient(135deg,#B71C1C,#D32F2F);">OD</div>
+            <div>
+                <div class="uni-name">ODTÜ</div>
+                <div class="uni-loc">📍 Ankara, Çankaya</div>
+            </div>
+        </div>
+        <div class="uni-tags">
+            <span class="uni-tag tag-devlet">Devlet</span>
+            <span class="uni-tag" style="background:#E3F2FD;color:#1565C0;">Top 3</span>
+        </div>
+        <div class="uni-stats">
+            <div class="uni-stat"><div class="uni-stat-val">475+</div><div class="uni-stat-lbl">Taban Puan</div></div>
+            <div class="uni-stat"><div class="uni-stat-val">27K</div><div class="uni-stat-lbl">Öğrenci</div></div>
+            <div class="uni-stat"><div class="uni-stat-val">4.7</div><div class="uni-stat-lbl">Puan ⭐</div></div>
+        </div>
+    </div>
+    <div class="uni-card">
+        <div class="uni-header">
+            <div class="uni-logo" style="background:linear-gradient(135deg,#004D40,#00695C);">KÜ</div>
+            <div>
+                <div class="uni-name">Koç Üniversitesi</div>
+                <div class="uni-loc">📍 İstanbul, Sarıyer</div>
+            </div>
+        </div>
+        <div class="uni-tags">
+            <span class="uni-tag tag-vakif">Vakıf</span>
+            <span class="uni-tag" style="background:#F3E5F5;color:#8E44AD;">%100 Burs</span>
+        </div>
+        <div class="uni-stats">
+            <div class="uni-stat"><div class="uni-stat-val">470+</div><div class="uni-stat-lbl">Burs Puanı</div></div>
+            <div class="uni-stat"><div class="uni-stat-val">6K</div><div class="uni-stat-lbl">Öğrenci</div></div>
+            <div class="uni-stat"><div class="uni-stat-val">4.9</div><div class="uni-stat-lbl">Puan ⭐</div></div>
+        </div>
+    </div>
+</div>
+
+<!-- TASKS -->
+<div class="section-hdr">
+    <div class="section-title">✅ Bugünün Görevleri</div>
+</div>
+<div class="task-item" onclick="toggleTask(this)">
+    <div class="task-cb checked"><i class="fas fa-check"></i></div>
+    <div class="task-content">
+        <div class="task-title done">Matematik - Türev konusu çalış</div>
+        <div class="task-meta">📚 2 saat • Tamamlandı</div>
+    </div>
+    <div class="task-dot" style="background:var(--danger)"></div>
+</div>
+<div class="task-item" onclick="toggleTask(this)">
+    <div class="task-cb"></div>
+    <div class="task-content">
+        <div class="task-title">3 üniversite araştır ve not al</div>
+        <div class="task-meta">🏫 1 saat • Devam ediyor</div>
+    </div>
+    <div class="task-dot" style="background:var(--warning)"></div>
+</div>
+<div class="task-item" onclick="toggleTask(this)">
+    <div class="task-cb"></div>
+    <div class="task-content">
+        <div class="task-title">Deneme sınavı çöz</div>
+        <div class="task-meta">📝 2.5 saat • Planlandı</div>
+    </div>
+    <div class="task-dot" style="background:var(--danger)"></div>
+</div>
+
+<!-- MOTIVATION -->
+<div class="motivation-card">
+    <div class="motiv-label">✨ Günün Motivasyonu</div>
+    <div class="motiv-text">"Başarı, her gün tekrarlanan küçük çabaların toplamıdır."</div>
+    <div class="motiv-author">— Robert Collier</div>
+</div>
+
+<!-- PROGRESS (LOCKED) -->
+<div class="section-hdr">
+    <div class="section-title">📈 Kariyer Yol Haritam</div>
+</div>
+<div class="locked-section">
+    <div class="progress-card">
+        <div class="progress-hdr">
+            <div class="progress-title">Genel İlerleme</div>
+            <div class="progress-pct">42%</div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:42%"></div></div>
+        <div class="progress-item">
+            <div class="p-check done"><i class="fas fa-check"></i></div>
+            <span class="p-text completed">Kişilik testi tamamlandı</span>
+        </div>
+        <div class="progress-item">
+            <div class="p-check done"><i class="fas fa-check"></i></div>
+            <span class="p-text completed">İlgi alanları belirlendi</span>
+        </div>
+        <div class="progress-item">
+            <div class="p-check now"><i class="fas fa-circle" style="font-size:7px"></i></div>
+            <span class="p-text">Üniversite araştırması</span>
+        </div>
+        <div class="progress-item">
+            <div class="p-check pending"><i class="fas fa-circle" style="font-size:5px"></i></div>
+            <span class="p-text">Tercih listesi oluştur</span>
+        </div>
+    </div>
+</div>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+    <div class="cta-title">🚀 Tam Sürümü Keşfet!</div>
+    <div class="cta-desc">Holland Kariyer Testi, AI Koç, Mentor Eşleştirme, Gerçek Üniversite Verileri ve çok daha fazlası!</div>
+    <button class="cta-btn"><i class="fas fa-download"></i> Uygulamayı İndir</button>
+    <div class="cta-features">
+        <span>🧠 Kariyer Testi</span>
+        <span>🤖 AI Koç</span>
+        <span>👥 Mentorlar</span>
+        <span>📊 Analiz</span>
+    </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+    <button class="nav-item active"><i class="fas fa-home"></i><span>Ana Sayfa</span></button>
+    <button class="nav-item"><i class="fas fa-search"></i><span>Keşfet</span></button>
+    <button class="nav-item nav-center"><i class="fas fa-plus"></i></button>
+    <button class="nav-item"><i class="fas fa-chart-pie"></i><span>Planım</span></button>
+    <button class="nav-item"><i class="fas fa-user"></i><span>Profil</span></button>
+</nav>
+
+<script>
+    // Countdown
+    function updateCountdown() {
+        const yks = new Date('2025-06-14');
+        const now = new Date();
+        const diff = Math.ceil((yks - now) / (1000*60*60*24));
+        document.getElementById('countdownDays').textContent = diff > 0 ? diff : '🎉';
+    }
+    updateCountdown();
+
+    // Task toggle
+    function toggleTask(el) {
+        const cb = el.querySelector('.task-cb');
+        const title = el.querySelector('.task-title');
+        if (cb.classList.contains('checked')) {
+            cb.classList.remove('checked');
+            cb.innerHTML = '';
+            title.classList.remove('done');
+        } else {
+            cb.classList.add('checked');
+            cb.innerHTML = '<i class="fas fa-check"></i>';
+            title.classList.add('done');
+        }
+    }
+</script>
+
+</body>
+</html>
